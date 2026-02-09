@@ -133,6 +133,15 @@ class DocumentationPage {
             def preRelease = SiteMap.latestPreReleaseVersion(releases)
             def latest = SiteMap.latestVersion(releases)
             def categories = DocumentationPage.categories(modules)
+            def missingDocsCriteria = [
+                    { it.startsWith('0') },
+                    { it.startsWith('1.0') },
+                    { it == '3.1.16' }
+
+            ]
+            def olderVersionOptions = SiteMap.olderVersions(releases)
+                    .findAll { v -> !missingDocsCriteria.any { crit -> crit(v) } }
+                    .collect { "<option>$it</option>" }
             div(class: 'content') {
                 div(class: 'two-columns') {
                     div(class: 'odd column'){
@@ -167,25 +176,37 @@ class DocumentationPage {
                                     'Older Version'
                             )
                             p('Browse previous versions\' documentation since Grails 1.2.0')
+                            script(type: 'text/javascript') {
+                                mkp.yieldUnescaped(
+                                        '''
+                                        function redirectToDocs(selectEl, urlTemplate) {
+                                            if (selectEl.selectedIndex === 0) {
+                                                return; // No version selected
+                                            }                      
+                                            window.location.href = urlTemplate.replace('{v}', selectEl.value);
+                                        }
+                                        '''
+                                )
+                            }
                             div(class: 'version-selector') {
                                 h4('Single Page - User Guide')
-                                select(onchange: "window.location.href='https://grails.apache.org/docs/' + this.value + '/guide/single.html'") {
+                                select(onchange: "redirectToDocs(this, 'https://grails.apache.org/docs/{v}/guide/single.html')") {
                                     option('Select a version')
-                                    mkp.yield('[%versions]')
+                                    mkp.yieldUnescaped(olderVersionOptions)
                                 }
                             }
                             div(class: 'version-selector') {
                                 h4('User Guide')
-                                select(onchange: "window.location.href='https://grails.apache.org/docs/' + this.value") {
+                                select(onchange: "redirectToDocs(this, 'https://grails.apache.org/docs/{v}')") {
                                     option('Select a version')
-                                    mkp.yield('[%versions]')
+                                    mkp.yieldUnescaped(olderVersionOptions)
                                 }
                             }
                             div(class: 'version-selector') {
                                 h4('API Reference')
-                                select(onchange: "window.location.href='https://grails.apache.org/docs/' + this.value + '/api'") {
+                                select(onchange: "redirectToDocs(this, 'https://grails.apache.org/docs/{v}/api')") {
                                     option('Select a version')
-                                    mkp.yield('[%versions]')
+                                    mkp.yieldUnescaped(olderVersionOptions)
                                 }
                             }
                         }

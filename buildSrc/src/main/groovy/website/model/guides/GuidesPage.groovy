@@ -187,7 +187,6 @@ class GuidesPage {
                             mkp.yieldUnescaped(guideGroupByCategory(categories.angular, guides, true, 'margin-top: 0'))
                             mkp.yieldUnescaped(guideGroupByCategory(categories.angularjs, guides))
                             mkp.yieldUnescaped(guideGroupByCategory(categories.react, guides))
-                            mkp.yieldUnescaped(GuidesPage.guideSuggestion())
                         }
                     }
                 }
