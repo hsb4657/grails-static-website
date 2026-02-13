@@ -54,10 +54,10 @@ class PluginsPage {
         def sortedByName = (plugins ?: [])
                 .toSorted { a, b -> a.name?.toLowerCase() <=> b.name?.toLowerCase() }
         def sortedByDate = (plugins ?: [])
-                .toSorted { a, b -> b.updated <=> a.updated }.take(5)
+                .toSorted { a, b -> b.updated <=> a.updated }.take(6)
         def sortedByStars = (plugins ?: [])
                 .findAll { it.githubStars != null && it.githubStars > 0 }
-                .toSorted { a, b -> b.githubStars <=> a.githubStars }.take(5)
+                .toSorted { a, b -> b.githubStars <=> a.githubStars }.take(6)
 
         // Extract unique Grails major versions from plugins, sorted descending
         def grailsMajorVersions = (plugins ?: [])
