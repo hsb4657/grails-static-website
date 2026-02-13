@@ -113,7 +113,6 @@ abstract class PluginsTask extends GrailsWebsiteTask {
         def siteUrl = url.get()
 
         def distDir          = outputDir.dir('dist').get().asFile
-        def pluginsDir       = outputDir.dir('dist/plugins').get().asFile
         def pluginsTagsDir   = outputDir.dir('dist/plugins/tags').get().asFile.tap { mkdirs() }
         def pluginsOwnersDir = outputDir.dir('dist/plugins/owners').get().asFile.tap { mkdirs() }
 
@@ -146,7 +145,10 @@ abstract class PluginsTask extends GrailsWebsiteTask {
                 .findAll { it }
                 .unique()
                 .each { owner ->
-                    new File(pluginsOwnersDir, "${owner}.html").setText(
+                    new File(
+                            pluginsOwnersDir,
+                            "${owner.replace(' ', '').toLowerCase()}.html"
+                    ).setText(
                             wrap(renderHtmlPagesForOwners(siteUrl, plugins, owner)),
                             'UTF-8'
                     )
@@ -160,7 +162,7 @@ abstract class PluginsTask extends GrailsWebsiteTask {
 
     static String renderHtmlPagesForOwners(String siteUrl, List<Plugin> plugins, String owner) {
         def filteredPlugins = (plugins ?: []).findAll { it.owner?.name == owner }
-        PluginsPage.mainContent(siteUrl, plugins, "Plugins by creator: #$owner", filteredPlugins)
+        PluginsPage.mainContent(siteUrl, plugins, "Plugins by creator: $owner", filteredPlugins)
     }
 
     /**

@@ -54,10 +54,10 @@ class PluginsPage {
         def sortedByName = (plugins ?: [])
                 .toSorted { a, b -> a.name?.toLowerCase() <=> b.name?.toLowerCase() }
         def sortedByDate = (plugins ?: [])
-                .toSorted { a, b -> b.updated <=> a.updated }.take(5)
+                .toSorted { a, b -> b.updated <=> a.updated }.take(6)
         def sortedByStars = (plugins ?: [])
                 .findAll { it.githubStars != null && it.githubStars > 0 }
-                .toSorted { a, b -> b.githubStars <=> a.githubStars }.take(5)
+                .toSorted { a, b -> b.githubStars <=> a.githubStars }.take(6)
 
         // Extract unique Grails major versions from plugins, sorted descending
         def grailsMajorVersions = (plugins ?: [])
@@ -194,7 +194,9 @@ class PluginsPage {
 
     @CompileDynamic
     static String renderPluginGrid(List<Plugin> plugins, String title) {
-        def sortedPlugins = (plugins ?: []).toSorted { a, b -> a.name?.toLowerCase() <=> b.name?.toLowerCase() }
+        def sortedPlugins = (plugins ?: []).toSorted {
+            a, b -> a.name?.toLowerCase() <=> b.name?.toLowerCase()
+        }
         renderHtml {
             h2(class: 'section-title', title)
             ul(class: 'plugin-list') {
@@ -340,7 +342,11 @@ class PluginsPage {
                     // Left side: owner pill and docs/license
                     div(class: 'footer-left') {
                         if (plugin.owner) {
-                            a(href: "[%url]/plugins/owners/${plugin.owner.name}.html", class: 'owner-pill') {
+                            def linkFilename = plugin.owner.name.replace(' ', '').toLowerCase()
+                            a(
+                                    href: "[%url]/plugins/owners/${linkFilename}.html",
+                                    class: 'owner-pill'
+                            ) {
                                 span(class: 'owner-icon', '@')
                                 mkp.yield(plugin.owner.name)
                             }
