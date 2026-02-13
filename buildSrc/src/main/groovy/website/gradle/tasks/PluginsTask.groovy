@@ -113,7 +113,6 @@ abstract class PluginsTask extends GrailsWebsiteTask {
         def siteUrl = url.get()
 
         def distDir          = outputDir.dir('dist').get().asFile
-        def pluginsDir       = outputDir.dir('dist/plugins').get().asFile
         def pluginsTagsDir   = outputDir.dir('dist/plugins/tags').get().asFile.tap { mkdirs() }
         def pluginsOwnersDir = outputDir.dir('dist/plugins/owners').get().asFile.tap { mkdirs() }
 

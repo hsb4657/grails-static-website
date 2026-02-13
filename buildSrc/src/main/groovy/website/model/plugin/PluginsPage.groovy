@@ -194,7 +194,9 @@ class PluginsPage {
 
     @CompileDynamic
     static String renderPluginGrid(List<Plugin> plugins, String title) {
-        def sortedPlugins = (plugins ?: []).toSorted { a, b -> a.name?.toLowerCase() <=> b.name?.toLowerCase() }
+        def sortedPlugins = (plugins ?: []).toSorted {
+            a, b -> a.name?.toLowerCase() <=> b.name?.toLowerCase()
+        }
         renderHtml {
             h2(class: 'section-title', title)
             ul(class: 'plugin-list') {
