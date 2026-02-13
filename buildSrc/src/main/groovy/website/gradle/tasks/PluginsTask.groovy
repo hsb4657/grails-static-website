@@ -162,7 +162,7 @@ abstract class PluginsTask extends GrailsWebsiteTask {
 
     static String renderHtmlPagesForOwners(String siteUrl, List<Plugin> plugins, String owner) {
         def filteredPlugins = (plugins ?: []).findAll { it.owner?.name == owner }
-        PluginsPage.mainContent(siteUrl, plugins, "Plugins by creator: #$owner", filteredPlugins)
+        PluginsPage.mainContent(siteUrl, plugins, "Plugins by creator: $owner", filteredPlugins)
     }
 
     /**
