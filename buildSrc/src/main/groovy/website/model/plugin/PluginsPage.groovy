@@ -340,7 +340,11 @@ class PluginsPage {
                     // Left side: owner pill and docs/license
                     div(class: 'footer-left') {
                         if (plugin.owner) {
-                            a(href: "[%url]/plugins/owners/${plugin.owner.name}.html", class: 'owner-pill') {
+                            def linkFilename = plugin.owner.name.replace(' ', '').toLowerCase()
+                            a(
+                                    href: "[%url]/plugins/owners/${linkFilename}.html",
+                                    class: 'owner-pill'
+                            ) {
                                 span(class: 'owner-icon', '@')
                                 mkp.yield(plugin.owner.name)
                             }

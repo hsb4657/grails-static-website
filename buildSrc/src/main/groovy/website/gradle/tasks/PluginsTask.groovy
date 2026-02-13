@@ -146,7 +146,10 @@ abstract class PluginsTask extends GrailsWebsiteTask {
                 .findAll { it }
                 .unique()
                 .each { owner ->
-                    new File(pluginsOwnersDir, "${owner}.html").setText(
+                    new File(
+                            pluginsOwnersDir,
+                            "${owner.replace(' ', '').toLowerCase()}.html"
+                    ).setText(
                             wrap(renderHtmlPagesForOwners(siteUrl, plugins, owner)),
                             'UTF-8'
                     )
