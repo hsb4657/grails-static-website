@@ -76,8 +76,8 @@ class DownloadPage {
             return ''
         }
 
-        def redisVersion = '5.0.0'
-        def quartzVersion = '4.0.0'
+        def redisVersion = '5.0.1'
+        def quartzVersion = '4.0.1'
         def springSecurityVersion = '7.0.0'
         def grailsGithubActionsVersion = '1.0.1'
         def grailsGradlePublishVersion = '0.0.4'
