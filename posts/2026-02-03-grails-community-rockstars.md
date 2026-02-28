@@ -44,4 +44,4 @@ On behalf of the entire Grails community, thank you, James and Mattias, for your
 
 We invite the entire community to join us in congratulating James and Mattias. Share your thanks on the mailing list, GitHub, Grails Slack, LinkedIn, or X.
 
-If you're inspired to contribute to Grails, check out our [contribution guidelines](https://github.com/grails/grails-core/blob/master/CONTRIBUTING.md) and help shape the future of the framework!
+If you're inspired to contribute to Grails, check out our [contribution guidelines](https://github.com/apache/grails-core/blob/HEAD/CONTRIBUTING.md) and help shape the future of the framework!
